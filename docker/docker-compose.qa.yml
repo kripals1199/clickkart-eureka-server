@@ -1,0 +1,11 @@
+# docker/docker-compose.qa.yml
+services:
+  eureka-server:
+    environment:
+      SPRING_PROFILES_ACTIVE: qa
+      EUREKA_HOSTNAME: eureka-server-qa
+      # EUREKA_PEER_URLS intentionally omitted here: only set it (via shell/.env) once QA
+      # runs more than one Eureka replica for HA. Left unset, application-qa.yml falls
+      # back to a single-node peer URL pointing at itself.
+      EUREKA_DASHBOARD_USERNAME: ${EUREKA_DASHBOARD_USERNAME:?EUREKA_DASHBOARD_USERNAME must be set for qa}
+      EUREKA_DASHBOARD_PASSWORD: ${EUREKA_DASHBOARD_PASSWORD:?EUREKA_DASHBOARD_PASSWORD must be set for qa}

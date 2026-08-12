@@ -1,0 +1,29 @@
+# docker/docker-compose.yml
+services:
+  eureka-server:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    image: clickkart/eureka-server:1.0.0
+    container_name: clickkart-eureka-server
+    ports:
+      - "${SERVER_PORT:-8761}:${SERVER_PORT:-8761}"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SERVER_PORT: ${SERVER_PORT:-8761}
+      EUREKA_HOSTNAME: ${EUREKA_HOSTNAME:-localhost}
+      EUREKA_DASHBOARD_USERNAME: ${EUREKA_DASHBOARD_USERNAME:-admin}
+      EUREKA_DASHBOARD_PASSWORD: ${EUREKA_DASHBOARD_PASSWORD:-dev-only-secret-change-me}
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8761/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    networks:
+      - clickkart-net
+
+networks:
+  clickkart-net:
+    name: clickkart-net
+    driver: bridge

@@ -1,0 +1,11 @@
+# docker/docker-compose.prod.yml
+services:
+  eureka-server:
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      EUREKA_HOSTNAME: ${EUREKA_HOSTNAME:?EUREKA_HOSTNAME must be set for prod}
+      EUREKA_PEER_URLS: ${EUREKA_PEER_URLS:?EUREKA_PEER_URLS must be set for prod (comma-separated peer replica URLs)}
+      EUREKA_DASHBOARD_USERNAME: ${EUREKA_DASHBOARD_USERNAME:?EUREKA_DASHBOARD_USERNAME must be set for prod}
+      EUREKA_DASHBOARD_PASSWORD: ${EUREKA_DASHBOARD_PASSWORD:?EUREKA_DASHBOARD_PASSWORD must be set for prod}
+    # secrets should be sourced from a real secrets manager (K8s Secret / Vault) at
+    # deploy time, never from a .env file committed to source control

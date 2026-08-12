@@ -1,0 +1,8 @@
+# docker/docker-compose.dev.yml
+services:
+  eureka-server:
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      EUREKA_HOSTNAME: localhost
+      EUREKA_DASHBOARD_USERNAME: admin
+      EUREKA_DASHBOARD_PASSWORD: dev-only-secret-change-me
