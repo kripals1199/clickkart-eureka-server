@@ -57,6 +57,17 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- CVE-2026-54399 (HIGH): httpcore5 5.3.6 arrives transitively via Spring Cloud.
+                 Pinned to the first fixed release. An explicit entry here deliberately takes
+                 precedence over the imported BOMs below - remove this pin once the Spring Cloud
+                 BOM ships 5.4.3 or later on its own. Verified by Trivy image scan. -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5</artifactId>
+                <version>5.4.3</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
